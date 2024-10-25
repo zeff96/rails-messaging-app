@@ -1,0 +1,15 @@
+<section class="w-full h-screen flex flex-col p-3">
+  <h2 class="text-red-600 font-bold text-2xl mb-3">Add new Post</h2>
+  <%= form_with model: @post, local: true do |f| %>
+    <div class="mb-3">
+      <%= f.label :body %>
+      <%= f.text_area :body, class: "rounded", class: "bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" %>
+    </div>
+    <div class="mb-3">
+      <%= f.file_field :images, multiple: true, direct_upload: true, class: "rounded", class: "bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500" %>
+    </div>
+    <div class="mb-3">
+      <%= f.submit "Create", class: "bg-blue-500 py-2 px-4 border-none rounded text-gray-200 hover:bg-blue-900" %>
+    </div>
+  <% end %>
+</section>
