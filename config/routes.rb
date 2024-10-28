@@ -13,5 +13,9 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "posts#index"
   resources :posts
-  resources :notifications
+  resources :notifications do
+    collection do
+      post :mark_as_read
+    end
+  end
 end
