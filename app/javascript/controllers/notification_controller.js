@@ -23,12 +23,10 @@ export default class extends Controller {
   }
 
   updateNotification(notifications) {
-    this.menuTarget.innerHTML = notifications
-      .map(
-        (notification) =>
-          `<a class="block text-sm text-gray-700" href=${notification.url}>${notification.actor} ${notification.action} ${notification.notifiable.type}</a>`
-      )
-      .join(" ");
+    notifications.forEach((notification) => {
+      const newNotification = `<a class="block text-sm text-gray-700" href=${notification.url}>${notification.actor} ${notification.action} ${notification.notifiable.type}</a>`;
+      this.menuTarget.insertAdjacentHTML("beforeend", newNotification);
+    });
   }
 
   updateCount(length) {
