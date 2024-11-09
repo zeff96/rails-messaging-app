@@ -12,23 +12,30 @@ const notificationChannel = consumer.subscriptions.create(
     },
 
     received(data) {
-      // This method will be called whenever a new notification is received
-      const notification = {
-        url: data.url,
-        actor: data.actor,
-        action: data.action,
-        notifiable: data.notifiable,
-      };
+      console.log("Notification received:", data); // Log the received data
 
-      // Call the Stimulus controller method to update the UI
-      const notificationController = document.querySelector(
-        "[data-controller='notifications']"
-      ).controller;
+      const notification = data.notification; // Extract the notification object
 
-      notificationController.updateNotification([notification]);
-      notificationController.updateCount(
-        notificationController.countTarget.innerHTML + 1
-      );
+      const notificationHtml = `<div class="notification">
+        <p><a href="${notification.url}">${notification.actor.name} ${
+        notification.action
+      }: ${truncate(notification.notifiable.body, 50)}</a></p>
+      </div>`;
+
+      // Update the notification count
+      const countElement = document.getElementById("notification-count");
+      if (data.count > 0) {
+        countElement.innerText = data.count;
+        countElement.classList.remove("hidden");
+      }
+
+      // Insert the new notification into the dropdown menu
+      const notificationsElement = document.getElementById("dropdown-menu");
+      notificationsElement.insertAdjacentHTML("afterbegin", notificationHtml);
     },
   }
 );
+
+function truncate(str, n) {
+  return str.length > n ? str.substr(0, n - 1) + "&hellip;" : str;
+}
