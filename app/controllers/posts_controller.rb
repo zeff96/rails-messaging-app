@@ -27,7 +27,8 @@ class PostsController < ApplicationController
   private
   def send_notifications_to_others(post)
     User.where.not(id: current_user.id).find_each do |user|
-      Notification.create!(recipient: user, actor: current_user, action: "posted", notifiable: post)
+      notification = Notification.create!(recipient: user, actor: current_user, action: "posted", notifiable: post)
+      NotificationBroadcastJob.perform_later(notification) if notification.persisted?
     end
   end
   def post_params
