@@ -19,10 +19,11 @@
   </head>
 
   <body>
-    <main class="">
-      <%= render "layouts/navbar" %>
-      <p class="text-green-500"><%= notice %></p>
-      <p class="text-red-500"><%= alert %></p>
+    <%= render "layouts/navbar" %>
+    <div id="flash">
+      <%= render "layouts/flash" %>
+    </div>
+    <main>
       <%= yield %>
     </main>
   </body>
