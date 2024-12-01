@@ -1,0 +1,15 @@
+<%= form_with model: post, local: true do |f| %>
+    <div class="mb-3">
+      <%= f.label :body %>
+      <%= f.text_area :body, class: "rounded", class: "bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:ring-0" %>
+    </div>
+    <div class="mb-3">
+      <%= f.file_field :images, multiple: true, direct_upload: true, class: "rounded", class: "bg-gray-200 appearance-none border-2 border-gray-200 rounded w-full py-2 px-4 text-gray-700 leading-tight focus:outline-none focus:bg-white focus:border-purple-500 focus:ring-0" %>
+    </div>
+    <div class="flex items-center gap-x-2">
+      <%= link_to "Cancel",
+                  posts_path,
+                  class: "bg-gray-500 text-white font-sm border-none rounded hover:bg-gray-700 py-2 px-4"%>
+      <%= f.submit "Create", class: "bg-blue-500 py-2 px-4 border-none rounded text-gray-200 hover:bg-blue-900" %>
+    </div>
+  <% end %>
