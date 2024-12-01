@@ -1,11 +1,17 @@
 <section class="p-3">
   <% if user_signed_in? %>
     <div class="flex justify-end">
-      <%= link_to "New post", new_post_path, class: "bg-blue-500 text-gray-200 py-2 px-4 border-none rounded hover:bg-blue-700" %>
+      <%= link_to "New post", 
+                  [:new, :post],
+                  data: { turbo_frame: dom_id(Post.new) }, 
+                  class: "bg-blue-500 text-gray-200 py-2 px-4 border-none rounded hover:bg-blue-700" %>
     </div>
   <% end %>
   <div>
-    <%= render @posts %>
+    <%= turbo_frame_tag Post.new %>
+    <%= turbo_frame_tag "posts" do %>
+      <%= render @posts %>
+    <% end %>
   </div>
   
 </section>
