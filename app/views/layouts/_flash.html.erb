@@ -1,5 +1,8 @@
 <% flash.each do |type, message| %>
-  <div class="text-white font-sm <%= 'bg-green-500' if type == "notice" %> <%= 'bg-red-500' if type == "alert" %>">
+  <div
+  data-controller="flash"
+  data-flash-target="message"
+  class="text-white font-sm <%= 'bg-green-500' if type == "notice" %> <%= 'bg-red-500' if type == "alert" %> animate-pulse rounded-md px-4">
     <%= message %>
   </div>
 <% end %>
