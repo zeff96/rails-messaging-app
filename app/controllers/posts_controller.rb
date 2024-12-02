@@ -2,7 +2,7 @@ class PostsController < ApplicationController
   before_action :authenticate_user!, only: [ :new, :create ]
   before_action :set_post, only: [ :show ]
   def index
-    @posts = Post.includes(:user).all.order(created_at: :desc)
+    @posts = Post.all.includes(:user).ordered
   end
 
   def show; end
@@ -14,13 +14,15 @@ class PostsController < ApplicationController
   def create
     @post = Post.create(post_params)
     @post.user = current_user
-
-    if @post.save
-      # send notification to other users!
-      send_notifications_to_others(@post)
-      redirect_to @post, notice: "Post created successfully!"
-    else
-      render :new, status: :unprocessable_entity
+    respond_to do |format|
+      if @post.save
+        # send notification to other users!
+        send_notifications_to_others(@post)
+        format.turbo_stream { flash.now[:notice] = "Post created successfully!" }
+        format.html { redirect_to @post, notice: "Post created successfully!" }
+      else
+        format.html { render :new, status: :unprocessable_entity }
+      end
     end
   end
 
