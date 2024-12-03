@@ -18,13 +18,14 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
+  <body class="relative bg-gray-200">
     <%= render "layouts/navbar" %>
-    <div id="flash">
+    <div id="flash" class="fixed top-16 left-1/2 transform -translate-x-1/2">
       <%= render "layouts/flash" %>
     </div>
-    <main>
+    <main class="container mt-28 px-5">
       <%= yield %>
     </main>
+    <%= turbo_frame_tag 'modal' %>
   </body>
 </html>
