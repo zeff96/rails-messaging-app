@@ -11,21 +11,39 @@
       <h2 class="text-xl font-bold"><%= post.user.name %></h2>
     </div>
   </div>
-  <div>
+  <div data-controller="showmore">
     <p>
       <% if post.body.length > 100 %>
         <%= "#{post.body.slice(0, 100)}..." %>
-        <button type="button">show more</button>
+        <button data-action="showmore#more(post)" type="button">show more</button>
       <% else %>
         <%= post.body %>
+        <button type="button">show less</button>
       <% end %>
     </p>
   </div>
   <div>
     <% if post.images.attached? %>
-      <% post.images.each do |image| %>
-        <%= image_tag image %>
-      <% end %>
+      <div data-controller="images" class="grid grid-cols-3 gap-4">
+        <% post.images.each_with_index do |image, index| %>
+          <div 
+            class="relative overflow-hidden"
+            data-images-target="image"
+            <%= 'class="blurred"' if index > 2 %>
+          >
+            <%= image_tag image, class: 'w-full h-full object-cover transition duration-300 ease-in-out' %>
+          </div>
+        <% end %>
+          <% if post.images.count > 3 %>
+          <button 
+            data-action="click->images#showMore"
+            data-images-target="button"
+            class="mt-4 bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-700"
+          >
+            + Show more
+          </button>
+        <% end %>
+      </div>
     <% end %>
   </div>
 </div>
