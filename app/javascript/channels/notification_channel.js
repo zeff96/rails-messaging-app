@@ -27,6 +27,8 @@ const notificationChannel = consumer.subscriptions.create(
       if (data.count > 0) {
         countElement.innerText = data.count;
         countElement.classList.remove("hidden");
+      } else {
+        countElement.classList.add("hidden");
       }
 
       // Insert the new notification into the dropdown menu
