@@ -18,7 +18,7 @@
     <%= javascript_importmap_tags %>
   </head>
 
-  <body class="relative bg-gray-200">
+  <body>
     <%= render "layouts/navbar" %>
     <div id="flash" class="fixed top-16 left-1/2 transform -translate-x-1/2">
       <%= render "layouts/flash" %>
@@ -26,6 +26,5 @@
     <main class="container mt-28 px-5">
       <%= yield %>
     </main>
-    <%= turbo_frame_tag 'modal' %>
   </body>
 </html>
